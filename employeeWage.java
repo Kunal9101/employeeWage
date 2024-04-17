@@ -7,6 +7,7 @@ public class employeeWage {
         int PART_TIME_HOUR = 4;
         int FULL_TIME_HOUR = 8;
         int WORKING_DAYS= 20;
+        int MIN_WORKING_HOURS_FOR_MONTH = 100; 
 
         System.out.println("Welcome !!!");
 
@@ -17,6 +18,7 @@ public class employeeWage {
         int full = 0;
         int part = 0;
         int not = 0;
+        int totalHoursForMonth = 0;
 
         //calculating for whole month
         int empWageForMonth = 0;
@@ -30,10 +32,12 @@ public class employeeWage {
             int check = 0;
             if (attendence >= 0.7){
                 check = 3;
+                totalHoursForMonth = totalHoursForMonth + FULL_TIME_HOUR;
                 full++;
             }
             else if (attendence < 0.7 && attendence >=0.4){
                 check = 2;
+                totalHoursForMonth = totalHoursForMonth + PART_TIME_HOUR;
                 part++;
             }
             else {
@@ -61,7 +65,12 @@ public class employeeWage {
             }
             empWageForMonth = empWageForMonth + empWage_perday;
         }
-        System.out.printf("Employee Serve %d full day\n%d half day &\n%d Absent\n", full, part , not);
-        System.out.println("Total Employee wage is "+ empWageForMonth);
+        if (totalHoursForMonth >= MIN_WORKING_HOURS_FOR_MONTH){
+            System.out.printf("Employee Serve %d full day\n%d half day &\n%d Absent\n", full, part , not);
+            System.out.println("Total Employee wage is "+ empWageForMonth);
+        }
+        else{
+            System.out.println("Min Working hours is not reached");
+        }
     }
 }
