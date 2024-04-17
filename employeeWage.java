@@ -6,51 +6,62 @@ public class employeeWage {
         int RATE_PER_HOUR = 20;
         int PART_TIME_HOUR = 4;
         int FULL_TIME_HOUR = 8;
+        int WORKING_DAYS= 20;
 
         System.out.println("Welcome !!!");
 
         //create random function to check wheather employee is present or not
         Random rand = new Random();
-        float attendence = rand.nextFloat();
 
-        //preparing for switch case
-        //1. not present
-        //2. part time
-        //3. full time
-        int check = 0;
-        if (attendence >= 0.7){
-            check = 3;
-        }
-        else if (attendence < 0.7 && attendence >=0.4){
-            check = 2;
-        }
-        else {
-            check = 1;
-        }
+        //initailize calculation of attendence
+        int full = 0;
+        int part = 0;
+        int not = 0;
 
-        //printing employee is present or not using switch case
-        int empWage = 0;
-        switch (check) {
-            case 3:
-                empWage = RATE_PER_HOUR * FULL_TIME_HOUR;
-                System.out.println("Employee is present for full time...");
-                System.out.println("Employee wage is "+ empWage);
-                break;
-            
-            case 2:
-                empWage = RATE_PER_HOUR * PART_TIME_HOUR;
-                System.out.println("Employee is present for part time...");
-                System.out.println("Employee wage is "+ empWage);
-                break;
-            case 1:
-                System.out.println("Employee is Absent...");
-                System.out.println("Employee wage is "+ empWage);
-                break;
-            
-            default:
-                System.out.println("Invalid!!");
-                break;
-        }
+        //calculating for whole month
+        int empWageForMonth = 0;
+        for (int i=1 ; i <= WORKING_DAYS ; i++){
+            float attendence = rand.nextFloat();
 
+            //preparing for switch case
+            //1. not present
+            //2. part time
+            //3. full time
+            int check = 0;
+            if (attendence >= 0.7){
+                check = 3;
+                full++;
+            }
+            else if (attendence < 0.7 && attendence >=0.4){
+                check = 2;
+                part++;
+            }
+            else {
+                check = 1;
+                not++;
+            }
+
+            //printing employee is present or not using switch case
+            int empWage_perday = 0;
+            switch (check) {
+                case 3:
+                    empWage_perday = RATE_PER_HOUR * FULL_TIME_HOUR;
+                    break;
+                
+                case 2:
+                    empWage_perday = RATE_PER_HOUR * PART_TIME_HOUR;
+                    break;
+                case 1:
+                    empWage_perday = empWage_perday + 0 ;
+                    break;
+                
+                default:
+                    System.out.println("Invalid!!");
+                    break;
+            }
+            empWageForMonth = empWageForMonth + empWage_perday;
+        }
+        System.out.printf("Employee Serve %d full day\n%d half day &\n%d Absent\n", full, part , not);
+        System.out.println("Total Employee wage is "+ empWageForMonth);
     }
 }
